@@ -25,14 +25,16 @@
 
             @foreach ($tiers as $tier => $color)
                 <div class="flex items-center border rounded-lg overflow-hidden shadow-lg">
-                    <div class="{{ $color }} text-white text-center font-bold w-16 flex items-center justify-center">
+                    <div class="{{ $color }} text-white text-center font-extrabold w-20 h-20 flex items-center justify-center text-2xl rounded-l-md shadow-lg border border-black/10 hover:shadow-xl hover:bg-opacity-90 transition duration-200">
                         {{ $tier }}
                     </div>
+
                     <div class="flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('{{ strtolower($tier) }}-tier')">
                         <!-- Sample Task -->
-                        <div class="bg-gray-200 p-2 rounded shadow cursor-pointer" draggable="true" @dragstart="dragStart($event.target)">
+                        <div class="bg-yellow-200 p-3 rounded-md shadow-md border border-gray-300 cursor-grab hover:bg-yellow-300 hover:shadow-lg transition duration-200" draggable="true" @dragstart="dragStart($event.target)">
                             Task Example
                         </div>
+
                     </div>
                 </div>
             @endforeach
