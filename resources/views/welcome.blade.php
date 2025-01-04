@@ -6,6 +6,9 @@
 
     <title>Tier List To-Do App</title>
 
+    <!-- Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -14,47 +17,29 @@
         <h1 class="text-4xl font-bold text-center mb-8">🎯 Tier List To-Do App</h1>
 
         <!-- Tier List Container -->
-        <div class="space-y-6">
-            <!-- S Tier -->
-            <div class="bg-yellow-300 p-4 rounded shadow">
-                <h2 class="text-xl font-bold text-center">S Tier</h2>
-                <div class="space-y-2" id="s-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('s-tier')">
-                    <div class="bg-white p-2 rounded shadow" draggable="true" @dragstart="dragStart($event.target)">Task 1</div>
+        <div class="space-y-4">
+            <!-- Tier Box Template -->
+            @php
+                $tiers = ['S' => 'bg-red-500', 'A' => 'bg-orange-500', 'B' => 'bg-yellow-500', 'C' => 'bg-green-500', 'D' => 'bg-blue-500', 'E' => 'bg-gray-500'];
+            @endphp
+
+            @foreach ($tiers as $tier => $color)
+                <div class="flex items-center border rounded-lg overflow-hidden shadow-lg">
+                    <div class="{{ $color }} text-white text-center font-bold w-16 flex items-center justify-center">
+                        {{ $tier }}
+                    </div>
+                    <div class="flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('{{ strtolower($tier) }}-tier')">
+                        <!-- Sample Task -->
+                        <div class="bg-gray-200 p-2 rounded shadow cursor-pointer" draggable="true" @dragstart="dragStart($event.target)">
+                            Task Example
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- A Tier -->
-            <div class="bg-red-300 p-4 rounded shadow">
-                <h2 class="text-xl font-bold text-center">A Tier</h2>
-                <div class="space-y-2" id="a-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('a-tier')">
-                    <div class="bg-white p-2 rounded shadow" draggable="true" @dragstart="dragStart($event.target)">Task 2</div>
-                </div>
-            </div>
-
-            <!-- B Tier -->
-            <div class="bg-orange-300 p-4 rounded shadow">
-                <h2 class="text-xl font-bold text-center">B Tier</h2>
-                <div class="space-y-2" id="b-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('b-tier')"></div>
-            </div>
-
-            <!-- C Tier -->
-            <div class="bg-green-300 p-4 rounded shadow">
-                <h2 class="text-xl font-bold text-center">C Tier</h2>
-                <div class="space-y-2" id="c-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('c-tier')"></div>
-            </div>
-
-            <!-- D Tier -->
-            <div class="bg-blue-300 p-4 rounded shadow">
-                <h2 class="text-xl font-bold text-center">D Tier</h2>
-                <div class="space-y-2" id="d-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('d-tier')"></div>
-            </div>
+            @endforeach
         </div>
     </div>
 
-    <!-- Add Alpine.js for interactivity -->
-    <script src="https://unpkg.com/alpinejs@3.x.x" defer></script>
-
-    <!-- Drag-and-Drop Logic -->
+    <!-- Alpine.js Logic -->
     <script>
         function tierList() {
             return {
