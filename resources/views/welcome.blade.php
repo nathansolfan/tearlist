@@ -18,23 +18,36 @@
 
         <!-- Tier List Container -->
         <div class="space-y-4">
-            <!-- Tier Box Template -->
+            <!-- Tiers Loop -->
             @php
-                $tiers = ['S' => 'bg-red-500', 'A' => 'bg-orange-500', 'B' => 'bg-yellow-500', 'C' => 'bg-green-500', 'D' => 'bg-blue-500', 'E' => 'bg-gray-500'];
+                $tiers = [
+                    'S' => 'bg-red-500',
+                    'A' => 'bg-orange-500',
+                    'B' => 'bg-yellow-500',
+                    'C' => 'bg-green-500',
+                    'D' => 'bg-blue-500',
+                    'E' => 'bg-gray-500',
+                ];
             @endphp
 
             @foreach ($tiers as $tier => $color)
                 <div class="flex items-center border rounded-lg overflow-hidden shadow-lg">
-                    <div class="{{ $color }} text-white text-center font-extrabold w-20 h-20 flex items-center justify-center text-2xl rounded-l-md shadow-lg border border-black/10 hover:shadow-xl hover:bg-opacity-90 transition duration-200">
+                    <!-- Tier Label -->
+                    <div class="{{ $color }} text-white text-center font-extrabold w-20 h-20 flex items-center justify-center text-2xl rounded-l-md shadow-lg border border-black/10">
                         {{ $tier }}
                     </div>
 
-                    <div class="flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('{{ strtolower($tier) }}-tier')">
-                        <!-- Sample Task -->
-                        <div class="bg-yellow-200 p-3 rounded-md shadow-md border border-gray-300 cursor-grab hover:bg-yellow-300 hover:shadow-lg transition duration-200" draggable="true" @dragstart="dragStart($event.target)">
-                            Task Example
+                    <!-- Task Container -->
+                    <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier" x-data="tierList()" @dragover.prevent @drop="dropTask('{{ strtolower($tier) }}-tier')">
+                        <!-- Task Icon -->
+                        <div
+                            class="absolute left-0 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md transition-all"
+                            :style="{ left: progress + '%' }"
+                            @mouseover="pauseProgress"
+                            @mouseleave="resumeProgress"
+                        >
+                            ⏳
                         </div>
-
                     </div>
                 </div>
             @endforeach
@@ -45,15 +58,29 @@
     <script>
         function tierList() {
             return {
-                draggedTask: null,
-                dragStart(task) {
-                    this.draggedTask = task;
+                progress: 0,
+                interval: null,
+
+                init() {
+                    this.startProgress();
                 },
-                dropTask(tierId) {
-                    if (this.draggedTask) {
-                        document.getElementById(tierId).appendChild(this.draggedTask);
-                        this.draggedTask = null;
-                    }
+
+                startProgress() {
+                    this.interval = setInterval(() => {
+                        if (this.progress < 100) {
+                            this.progress += 0.1;
+                        } else {
+                            clearInterval(this.interval);
+                        }
+                    }, 100);
+                },
+
+                pauseProgress() {
+                    clearInterval(this.interval);
+                },
+
+                resumeProgress() {
+                    this.startProgress();
                 }
             };
         }
