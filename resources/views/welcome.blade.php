@@ -19,7 +19,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">🎯 Tier List To-Do App</h1>
 
         <!-- Tier List Container -->
-        <div class="space-y-4">
+        <div class="space-y-4" x-data="tierList()">
             <!-- Loop through each tier (S, A, B, etc.) -->
             @php
                 $tiers = [
@@ -75,6 +75,8 @@
                         window.location.href = `/tasks?tier=${tier}`;
                     }
                 }
+
+
             };
         }
     </script>
