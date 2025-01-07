@@ -59,7 +59,12 @@
     </div>
 
     <!-- Alpine.js -->
-    <script src="https://unpkg.com/alpinejs" defer></script>
-    <script type="module" src="/resources/js/tierList.js"></script>
+    {{-- <script src="https://unpkg.com/alpinejs" defer></script>
+    <script type="module" src="/resources/js/tierList.js"></script> --}}
+    <script type="module">
+        import tierList from './resources/js/tierList.js';
+        Alpine.data('tierList', tierList);
+    </script>
+
 </body>
 </html>
