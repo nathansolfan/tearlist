@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- Main Container -->
@@ -32,7 +32,6 @@
                 ];
             @endphp
 
-            <!-- Display each tier dynamically -->
             @foreach ($tiers as $tier => $color)
                 <div class="flex items-center border rounded-lg overflow-hidden shadow-lg">
                     <!-- Tier Label -->
@@ -59,12 +58,10 @@
     </div>
 
     <!-- Alpine.js -->
-    {{-- <script src="https://unpkg.com/alpinejs" defer></script>
-    <script type="module" src="/resources/js/tierList.js"></script> --}}
+    <script src="https://unpkg.com/alpinejs" defer></script>
     <script type="module">
         import tierList from './resources/js/tierList.js';
         Alpine.data('tierList', tierList);
     </script>
-
 </body>
 </html>
