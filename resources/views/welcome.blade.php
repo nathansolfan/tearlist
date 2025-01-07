@@ -19,7 +19,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">🎯 Tier List To-Do App</h1>
 
         <!-- Tier List Container -->
-        <div class="space-y-4" x-data="tierList()">
+        <div class="space-y-4" x-data="tierList({{ json_encode($tasks) }})" x-init="init()">
             <!-- Loop through each tier (S, A, B, etc.) -->
             @php
                 $tiers = [
@@ -42,13 +42,16 @@
 
                     <!-- Task Container -->
                     <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier">
-                        <!-- Task Icon -->
-                        <div
-                            class="absolute left-0 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer"
-                            @click="showConfirmation('{{ strtolower($tier) }}')"
-                        >
-                            ⏳
-                        </div>
+                        @foreach ($tasks->where('tier', strtolower($tier)) as $task)
+                            <!-- Task Icon -->
+                            <div
+                                class="absolute top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer"
+                                :style="{ left: progress[{{ $task->id }}] + '%' }"
+                                @click="showConfirmation('{{ $task->title }}')"
+                            >
+                                📝
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             @endforeach
@@ -57,28 +60,6 @@
 
     <!-- Alpine.js -->
     <script src="https://unpkg.com/alpinejs" defer></script>
-
-    <!-- JavaScript Logic -->
-    <script>
-        function tierList() {
-            return {
-                // Show a confirmation window when clicking the task icon
-                showConfirmation(tier) {
-                    // Display a confirmation window
-                    const userChoice = confirm(`You clicked on the ${tier.toUpperCase()} Tier. Do you want to add a new task? Click Cancel to view tasks.`);
-
-                    if (userChoice) {
-                        // Redirect to the task creation page
-                        window.location.href = `/task/create?tier=${tier}`;
-                    } else {
-                        // Redirect to the task list page
-                        window.location.href = `/tasks?tier=${tier}`;
-                    }
-                }
-
-
-            };
-        }
-    </script>
+    <script type="module" src="/resources/js/tierList.js"></script>
 </body>
 </html>
