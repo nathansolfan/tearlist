@@ -8,9 +8,6 @@
 
     <!-- Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Tailwind CSS -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- Main Container -->
@@ -19,7 +16,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">🎯 Tier List To-Do App</h1>
 
         <!-- Tier List Container -->
-        <div class="space-y-4" x-data="tierList({{ json_encode($tasks) }})" x-init="init()">
+        <div class="space-y-4" x-data="tierList({{ json_encode($tasks) }})">
             <!-- Loop through each tier (S, A, B, etc.) -->
             @php
                 $tiers = [
@@ -56,12 +53,44 @@
             @endforeach
         </div>
     </div>
-
-    <!-- Alpine.js -->
-    <script src="https://unpkg.com/alpinejs" defer></script>
-    <script type="module">
-        import tierList from './resources/js/tierList.js';
-        Alpine.data('tierList', tierList);
-    </script>
 </body>
 </html>
+
+<script>
+    function tierList(tasks) {
+        return {
+            tasks: tasks || [],
+            progress: {},
+
+            // Automatically called on component initialization
+            init() {
+                this.calculateProgress();
+            },
+
+            // Calculate progress based on task deadline
+            calculateProgress() {
+                this.tasks.forEach(task => {
+                    const today = new Date();
+                    const deadline = new Date(task.deadline);
+
+                    const totalTime = deadline - new Date(task.created_at);
+                    const elapsedTime = today - new Date(task.created_at);
+
+                    const progressPercentage = Math.min((elapsedTime / totalTime) * 100, 100);
+                    this.progress[task.id] = progressPercentage;
+                });
+            },
+
+            // Show a confirmation popup when a task is clicked
+            showConfirmation(taskTitle) {
+                alert(`Task: ${taskTitle}`);
+            }
+        };
+    }
+
+    // Initialize Alpine.js
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('tierList', tierList);
+    });
+</script>
+

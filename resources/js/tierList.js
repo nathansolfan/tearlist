@@ -3,12 +3,12 @@ export default function tierList(tasks) {
         tasks: tasks || [],
         progress: {},
 
-        // Init function to be called on page load
+        // Automatically called on component initialization
         init() {
             this.calculateProgress();
         },
 
-        // Calculate task progress based on deadline
+        // Calculate progress based on task deadline
         calculateProgress() {
             this.tasks.forEach(task => {
                 const today = new Date();
@@ -22,7 +22,7 @@ export default function tierList(tasks) {
             });
         },
 
-        // Optional: Show a confirmation popup
+        // Show a confirmation popup when a task is clicked
         showConfirmation(taskTitle) {
             alert(`Task: ${taskTitle}`);
         }
