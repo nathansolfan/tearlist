@@ -24,7 +24,7 @@
             @php
                 $tiers = [
                     'S' => 'bg-red-500',
-                    'A' => 'bg-orange-500',
+                    'A' => 'bg-pink-500',
                     'B' => 'bg-yellow-500',
                     'C' => 'bg-green-500',
                     'D' => 'bg-blue-500',
