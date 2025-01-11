@@ -7,11 +7,12 @@ use Livewire\Component;
 
 class TierList extends Component
 {
-    public $tasks = [];
+    public $tasks;
     public $progress = [];
 
     public function mount()
     {
+        // Load tasks from the database
         $this->tasks = Task::all();
 
         // Calculate progress for each task
@@ -25,12 +26,13 @@ class TierList extends Component
         $totalTime = strtotime($deadline) - strtotime($created_at);
         $elapsedTime = time() - strtotime($created_at);
 
-        // Ensure progress is between 0% and 100%
+        // Return progress percentage, capped at 100%
         return min(($elapsedTime / $totalTime) * 100, 100);
     }
 
     public function render()
     {
+        // Pass tasks and progress data to the Blade view
         return view('livewire.tier-list', [
             'tasks' => $this->tasks,
             'progress' => $this->progress,
