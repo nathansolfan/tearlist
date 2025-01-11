@@ -20,15 +20,10 @@
             <!-- Task Container -->
             <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier">
                 @foreach ($tasks->where('tier', strtolower($tier)) as $task)
-                    @php
-                        $progress = $this->calculateProgress($task->created_at, $task->deadline);
-                    @endphp
-
-                    <!-- Task Icon -->
+                    <!-- Task Progress Animation -->
                     <div
-                        class="absolute top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer task-icon"
-                        style="left: {{ $progress }}%; transition: left 0.5s ease-in-out;"
-                        wire:click="$emit('showConfirmation', '{{ $task->title }}')"
+                        class="absolute top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer transition-all"
+                        style="left: {{ $progress[$task->id] ?? 0 }}%"
                     >
                         📝
                     </div>
