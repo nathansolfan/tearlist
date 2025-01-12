@@ -9,4 +9,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/', [TaskController::class, 'index']);
-Route::get('/', TierList::class);
+// Route::get('/', TierList::class);
+
+Route::get('/', function () {
+    return view('welcome');
+});
