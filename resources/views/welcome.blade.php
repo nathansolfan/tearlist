@@ -19,7 +19,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">🎯 Tier List To-Do App</h1>
 
         <!-- Include the Livewire Component -->
-        @livewire('tier-list')
+        @livewire('tierlist')
     </div>
 
     <!-- Livewire Scripts -->
