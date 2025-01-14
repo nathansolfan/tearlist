@@ -4,7 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Task;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 
+#[Layout('layouts.app')] // Specify the layout using the attribute
 class TierList extends Component
 {
     public $tasks;
@@ -12,10 +14,8 @@ class TierList extends Component
 
     public function mount()
     {
-        // Load tasks from the database
         $this->tasks = Task::all();
 
-        // Calculate progress for each task
         foreach ($this->tasks as $task) {
             $this->progress[$task->id] = $this->calculateProgress($task->created_at, $task->deadline);
         }
@@ -31,9 +31,6 @@ class TierList extends Component
 
     public function render()
     {
-        return view('livewire.tier-list', [
-            'tasks' => $this->tasks,
-            'progress' => $this->progress,
-        ]);
+        return view('livewire.tier-list');
     }
 }

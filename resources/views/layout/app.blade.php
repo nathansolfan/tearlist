@@ -14,8 +14,7 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
     <div class="container mx-auto px-4 py-10">
-        <!-- This is where your component will render -->
-        {{ $slot }}
+        @yield('content')
     </div>
 
     <!-- Livewire Scripts -->
