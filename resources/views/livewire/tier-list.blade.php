@@ -1,14 +1,27 @@
 <div class="space-y-4">
-    @php
-        $tiers = [
-            'S' => 'bg-red-500',
-            'A' => 'bg-orange-500',
-            'B' => 'bg-yellow-500',
-            'C' => 'bg-green-500',
-            'D' => 'bg-blue-500',
-            'E' => 'bg-gray-500',
-        ];
-    @endphp
+    <div class="space-y-4">
+        <!-- Display Validation Errors -->
+        @if ($errors->any())
+            <div class="alert alert-danger p-4 bg-red-100 text-red-800 rounded">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @php
+            $tiers = [
+                'S' => 'bg-red-500',
+                'A' => 'bg-blue-500',
+                'B' => 'bg-yellow-500',
+                'C' => 'bg-green-500',
+                'D' => 'bg-blue-500',
+                'E' => 'bg-gray-500',
+            ];
+        @endphp
+
 
     @foreach ($tiers as $tier => $color)
         <div class="flex items-center border rounded-lg overflow-hidden shadow-lg">

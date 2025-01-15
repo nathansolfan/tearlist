@@ -27,6 +27,7 @@ class TierList extends Component
         return min(($elapsedTime / $totalTime) * 100, 100);
     }
 
+    /** @noinspection PhpUndefinedMethodInspection */
     public function render()
     {
         return view('livewire.tier-list')
