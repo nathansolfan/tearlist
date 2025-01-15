@@ -4,9 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Task;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 
-#[Layout('layouts.app')] // Specify the layout using the attribute
 class TierList extends Component
 {
     public $tasks;
@@ -31,6 +29,8 @@ class TierList extends Component
 
     public function render()
     {
-        return view('livewire.tier-list');
+        return view('livewire.tier-list')
+            ->extends('layouts.app') // Extend the correct layout
+            ->section('content');    // Specify the section to render
     }
 }

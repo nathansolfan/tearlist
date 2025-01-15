@@ -9,16 +9,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Route for the TierList component
 Route::get('/', TierList::class);
-
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/', [TaskController::class, 'index']);
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
