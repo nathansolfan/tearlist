@@ -12,8 +12,10 @@ class TierList extends Component
 
     public function mount()
     {
+        // Fetch all tasks
         $this->tasks = Task::all();
 
+        // Calculate progress for each task
         foreach ($this->tasks as $task) {
             $this->progress[$task->id] = $this->calculateProgress($task->created_at, $task->deadline);
         }
@@ -27,7 +29,6 @@ class TierList extends Component
         return min(($elapsedTime / $totalTime) * 100, 100);
     }
 
-    /** @noinspection PhpUndefinedMethodInspection */
     public function render()
     {
         return view('livewire.tier-list')
