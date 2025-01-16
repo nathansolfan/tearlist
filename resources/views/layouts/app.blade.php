@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
     <div class="container mx-auto px-4 py-10">
-        @yield('content') <!-- Content will be injected here -->
+        @yield('content') <!-- This is where content will be injected -->
     </div>
     <!-- Livewire Scripts -->
     @livewireScripts

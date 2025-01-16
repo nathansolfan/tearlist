@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div x-data="{}" class="space-y-4">
     <!-- Display Validation Errors -->
     @if ($errors->any())
         <div class="alert alert-danger p-4 bg-red-100 text-red-800 rounded">
@@ -13,7 +13,7 @@
     @php
         $tiers = [
             'S' => 'bg-red-500',
-            'A' => 'bg-orange-500',
+            'A' => 'bg-blue-500',
             'B' => 'bg-yellow-500',
             'C' => 'bg-green-500',
             'D' => 'bg-blue-500',
@@ -33,6 +33,10 @@
                 @foreach ($tasks->filter(fn($task) => $task->tier === strtolower($tier)) as $task)
                     <!-- Task Progress Animation -->
                     <div
+                        x-data="{ hover: false }"
+                        x-on:mouseover="hover = true"
+                        x-on:mouseleave="hover = false"
+                        x-bind:class="{ 'bg-green-500': hover }"
                         class="absolute top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer transition-all"
                         style="left: {{ $progress[$task->id] ?? 0 }}%"
                     >

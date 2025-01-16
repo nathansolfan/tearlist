@@ -12,7 +12,7 @@ class TierList extends Component
 
     public function mount()
     {
-        // Fetch all tasks
+        // Fetch all tasks from the database
         $this->tasks = Task::all();
 
         // Calculate progress for each task
@@ -29,10 +29,18 @@ class TierList extends Component
         return min(($elapsedTime / $totalTime) * 100, 100);
     }
 
+    public function validateTask()
+    {
+        // Example of validation logic
+        $this->validate([
+            'taskName' => 'required|min:3',
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.tier-list')
-            ->extends('layouts.app') // Extend the correct layout
-            ->section('content');    // Specify the section to render
+            ->extends('layouts.app') // Extend the layout
+            ->section('content');    // Specify the section
     }
 }
