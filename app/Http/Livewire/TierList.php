@@ -29,12 +29,14 @@ class TierList extends Component
         return min(($elapsedTime / $totalTime) * 100, 100);
     }
 
-    public function validateTask()
+    public function toggleCompletion($taskId)
     {
-        // Example of validation logic
-        $this->validate([
-            'taskName' => 'required|min:3',
-        ]);
+        $task = Task::findOrFail($taskId);
+        $task->completed = !$task->completed;
+        $task->save();
+
+        // Refresh the tasks list
+        $this->tasks = Task::all();
     }
 
     public function render()

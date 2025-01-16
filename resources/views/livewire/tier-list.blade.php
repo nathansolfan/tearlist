@@ -42,6 +42,15 @@
                     >
                         📝
                     </div>
+
+                    <!-- Add a Toggle Button -->
+                    <button
+                        x-data="{}"
+                        x-on:click="$wire.toggleCompletion({{ $task->id }})"
+                        class="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-all"
+                    >
+                        Toggle
+                    </button>
                 @endforeach
             </div>
         </div>
