@@ -11,5 +11,6 @@ class Task extends Model
         'description',
         'tier',
         'deadline',
+        'completed',
     ];
 }

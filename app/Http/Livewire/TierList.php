@@ -35,15 +35,18 @@ class TierList extends Component
 }
 
 
-    public function toggleCompletion($taskId)
-    {
-        $task = Task::findOrFail($taskId);
-        $task->completed = !$task->completed;
-        $task->save();
+public function toggleCompletion($taskId)
+{
+    $task = Task::findOrFail($taskId);
+    $task->completed = !$task->completed;
+    $task->save();
 
-        // Refresh the tasks list
-        $this->tasks = Task::all();
-    }
+    logger()->info('Task ID ' . $taskId . ' toggled to ' . ($task->completed ? 'completed' : 'not completed'));
+
+    // Refresh the tasks list
+    $this->tasks = Task::all();
+}
+
 
     public function render()
     {
