@@ -22,12 +22,18 @@ class TierList extends Component
     }
 
     public function calculateProgress($created_at, $deadline)
-    {
-        $totalTime = strtotime($deadline) - strtotime($created_at);
-        $elapsedTime = time() - strtotime($created_at);
+{
+    $totalTime = strtotime($deadline) - strtotime($created_at);
+    $elapsedTime = time() - strtotime($created_at);
 
-        return min(($elapsedTime / $totalTime) * 100, 100);
+    // Avoid division by zero and clamp the value between 0 and 100
+    if ($totalTime <= 0) {
+        return 0;
     }
+
+    return min(max(($elapsedTime / $totalTime) * 100, 0), 100);
+}
+
 
     public function toggleCompletion($taskId)
     {

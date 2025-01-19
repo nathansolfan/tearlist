@@ -30,7 +30,7 @@
 
             <!-- Task Container -->
             <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier">
-                @foreach ($tasks->filter(fn($task) => $task->tier === strtolower($tier)) as $task)
+                @forelse ($tasks->filter(fn($task) => $task->tier === strtolower($tier)) as $task)
                     <!-- Task Progress Animation -->
                     <div
                         x-data="{ hover: false }"
@@ -38,7 +38,7 @@
                         x-on:mouseleave="hover = false"
                         x-bind:class="{ 'bg-green-500': hover }"
                         class="absolute top-1/2 transform -translate-y-1/2 w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-md cursor-pointer transition-all"
-                        style="left: {{ $progress[$task->id] ?? 0 }}%"
+                        style="left: {{ $progress[$task->id] ?? 0 }}%;"
                     >
                         📝
                     </div>
@@ -51,8 +51,11 @@
                     >
                         Toggle
                     </button>
-                @endforeach
+                @empty
+                    <p class="text-gray-500 text-sm">No tasks available for this tier.</p>
+                @endforelse
             </div>
+
         </div>
     @endforeach
 </div>
