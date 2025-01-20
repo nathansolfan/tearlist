@@ -20,5 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Livewire::component('tier-list', \App\Http\Livewire\TierList::class);
+
     }
 }
