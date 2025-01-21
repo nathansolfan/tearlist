@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             //
+            $table->boolean('completed')->default(false)->after('deadline'); // Adjust 'deadline' to the correct column
+
         });
     }
 
@@ -23,6 +25,8 @@ return new class extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             //
+            $table->dropColumn('completed');
+
         });
     }
 };
