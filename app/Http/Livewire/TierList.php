@@ -37,15 +37,21 @@ class TierList extends Component
 
 public function toggleCompletion($taskId)
 {
-    $task = Task::findOrFail($taskId);
-    $task->completed = !$task->completed;
-    $task->save();
+    try {
+        $task = Task::findOrFail($taskId);
+        $task->completed = !$task->completed;
+        $task->save();
 
-    logger()->info('Task ID ' . $taskId . ' toggled to ' . ($task->completed ? 'completed' : 'not completed'));
+        logger()->info("Task ID {$taskId} toggled to " . ($task->completed ? 'completed' : 'not completed'));
 
-    // Refresh the tasks list
-    $this->tasks = Task::all();
+        // Refresh tasks
+        $this->tasks = Task::all();
+    } catch (\Exception $e) {
+        logger()->error("Error toggling task ID {$taskId}: " . $e->getMessage());
+        $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
+    }
 }
+
 
 
     public function render()
