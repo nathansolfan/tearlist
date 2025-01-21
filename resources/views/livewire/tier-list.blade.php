@@ -30,8 +30,8 @@
 
             <!-- Task Container -->
             <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier">
-                @forelse ($tasks->filter(fn($task) => $task->tier === strtolower($tier)) as $task)
-                    <!-- Task Progress Animation -->
+                @forelse ($tasks->where('tier', strtolower($tier)) as $task)
+                <!-- Task Progress Animation -->
                     <div class="relative flex items-center space-x-4 mb-4">
                         <!-- Progress Bar -->
                         <div class="relative flex-1 bg-gray-200 h-4 rounded overflow-hidden shadow-md">
