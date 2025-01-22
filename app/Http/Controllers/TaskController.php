@@ -18,4 +18,13 @@ class TaskController extends Controller
         $tiers = ['s','a','b','c','d','e'];
         return view('tasks.register', compact('tiers'));
     }
+
+    public function store(Request $request)
+    {
+        // validate
+        $validated = $request->validate([
+
+        ]);
+
+    }
 }
