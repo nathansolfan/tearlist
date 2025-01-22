@@ -12,4 +12,10 @@ class TaskController extends Controller
         $tasks = Task::all();
         return view('welcome', compact('tasks'));
     }
+
+    public function create()
+    {
+        $tiers = ['s','a','b','c','d','e'];
+        return view('')
+    }
 }
