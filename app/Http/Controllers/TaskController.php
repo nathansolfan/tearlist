@@ -16,6 +16,6 @@ class TaskController extends Controller
     public function create()
     {
         $tiers = ['s','a','b','c','d','e'];
-        return view('')
+        return view('tasks.register', compact('tiers'));
     }
 }
