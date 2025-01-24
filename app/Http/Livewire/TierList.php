@@ -56,7 +56,8 @@ public function toggleCompletion($taskId)
 
 public function render()
 {
-    return view('livewire.tier-list');
+    return view('livewire.tier-list')->extends('layouts.app');
 }
+
 
 }
