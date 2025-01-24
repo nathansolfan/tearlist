@@ -1,3 +1,5 @@
+<x-layout>
+
 <div x-data="{}" class="space-y-4">
     <!-- Display Validation Errors -->
     @if ($errors->any())
@@ -63,3 +65,4 @@
         </div>
     @endforeach
 </div>
+</x-layout>
