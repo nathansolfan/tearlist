@@ -22,41 +22,42 @@ class TierList extends Component
     }
 
     public function calculateProgress($created_at, $deadline)
-{
-    $totalTime = strtotime($deadline) - strtotime($created_at);
-    $elapsedTime = time() - strtotime($created_at);
+    {
+        $totalTime = strtotime($deadline) - strtotime($created_at);
+        $elapsedTime = time() - strtotime($created_at);
 
-    // Avoid division by zero and clamp the value between 0 and 100
-    if ($totalTime <= 0) {
-        return 0;
+        // Avoid division by zero and clamp the value between 0 and 100
+        if ($totalTime <= 0) {
+            return 0;
+        }
+
+        return min(max(($elapsedTime / $totalTime) * 100, 0), 100);
     }
 
-    return min(max(($elapsedTime / $totalTime) * 100, 0), 100);
-}
 
+    public function toggleCompletion($taskId)
+    {
+        try {
+            $task = Task::findOrFail($taskId);
+            $task->completed = !$task->completed;
+            $task->save();
 
-public function toggleCompletion($taskId)
-{
-    try {
-        $task = Task::findOrFail($taskId);
-        $task->completed = !$task->completed;
-        $task->save();
+            logger()->info("Task ID {$taskId} toggled to " . ($task->completed ? 'completed' : 'not completed'));
 
-        logger()->info("Task ID {$taskId} toggled to " . ($task->completed ? 'completed' : 'not completed'));
-
-        // Refresh tasks
-        $this->tasks = Task::all();
-    } catch (\Exception $e) {
-        logger()->error("Error toggling task ID {$taskId}: " . $e->getMessage());
-        $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
+            // Refresh tasks
+            $this->tasks = Task::all();
+        } catch (\Exception $e) {
+            logger()->error("Error toggling task ID {$taskId}: " . $e->getMessage());
+            $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
+        }
     }
-}
 
 
 
-public function render()
-{
-    return view('livewire.tier-list')->extends('components.layouts.app');}
+    public function render()
+    {
+        // return view('livewire.tier-list')->extends('components.layouts.app');
+        return view('livewire.tier-list')->layout('components.layout');
 
-
+    }
 }
