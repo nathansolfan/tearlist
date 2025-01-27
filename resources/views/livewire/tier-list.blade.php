@@ -64,5 +64,15 @@
 
         </div>
     @endforeach
+    <section>
+        <div>
+            @if ($errors->has('toggleError'))
+    <div class="alert alert-danger p-4 bg-red-100 text-red-800 rounded">
+        {{ $errors->first('toggleError') }}
+    </div>
+@endif
+
+        </div>
+    </section>
 </div>
 </x-layout>
