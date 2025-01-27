@@ -1,4 +1,4 @@
-<x-layout>
+
 
 <div x-data="{}" class="space-y-4">
     <!-- Display Validation Errors -->
@@ -75,4 +75,4 @@
         </div>
     </section>
 </div>
-</x-layout>
+

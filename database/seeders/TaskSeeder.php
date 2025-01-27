@@ -43,6 +43,14 @@ class TaskSeeder extends Seeder
             'deadline' => now()->addDays(10), // 10 days from now
             'created_at' => now()->subDays(5), // Created 5 days ago
         ]);
+
+        Task::create([
+            'title' => 'Prepare Presentation',
+            'description' => 'Presentation details here.',
+            'tier' => 'b',
+            'deadline' => now()->addDays(15), // Deadline in 15 days
+            'created_at' => now()->subDays(5), // Created 5 days ago
+        ]);
     }
 
 
