@@ -26,21 +26,25 @@ class TierList extends Component
         $totalTime = strtotime($deadline) - strtotime($created_at);
         $elapsedTime = time() - strtotime($created_at);
 
-        // Avoid division by zero and clamp the value between 0 and 100
+        logger()->info("Total Time: $totalTime, Elapsed Time: $elapsedTime");
+
         if ($totalTime <= 0) {
             return 0;
         }
 
-        return min(max(($elapsedTime / $totalTime) * 100, 0), 100);
+        $progress = min(max(($elapsedTime / $totalTime) * 100, 0), 100);
+        logger()->info("Progress: $progress%");
+
+        return $progress;
     }
 
 
     public function toggleCompletion($taskId)
     {
         try {
-            $task = Task::findOrFail($taskId);
-            $task->completed = !$task->completed;
-            $task->save();
+            $task = Task::findOrFail($taskId); // Find the task by ID
+            $task->completed = !$task->completed; // Toggle completion status
+            $task->save(); // Save the changes
 
             logger()->info("Task ID {$taskId} toggled to " . ($task->completed ? 'completed' : 'not completed'));
 
@@ -48,9 +52,12 @@ class TierList extends Component
             $this->tasks = Task::all();
         } catch (\Exception $e) {
             logger()->error("Error toggling task ID {$taskId}: " . $e->getMessage());
-            $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
+
+            // Set an error message to display on the page
+            $this->addError('toggleError', 'Something went wrong while toggling the task status.');
         }
     }
+
 
 
 
@@ -58,6 +65,5 @@ class TierList extends Component
     {
         // return view('livewire.tier-list')->extends('components.layouts.app');
         return view('livewire.tier-list')->layout('components.layout');
-
     }
 }
