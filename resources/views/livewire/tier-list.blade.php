@@ -1,5 +1,3 @@
-
-
 <div x-data="{}" class="space-y-4">
     <!-- Display Validation Errors -->
     @if ($errors->any())
@@ -33,8 +31,17 @@
             <!-- Task Container -->
             <div class="relative flex-1 bg-white p-4 min-h-[100px]" id="{{ strtolower($tier) }}-tier">
                 @forelse ($tasks->where('tier', strtolower($tier)) as $task)
-                <!-- Task Progress Animation -->
-                    <div class="relative flex items-center space-x-4 mb-4">
+                    <div class="relative flex items-center space-x-4 mb-4 p-3 border rounded-lg shadow-md
+                        @if ($task->completed) bg-green-100 border-green-400 @else bg-white @endif">
+
+                        <!-- Task Details -->
+                        <div class="flex-1">
+                            <p class="font-bold text-lg @if ($task->completed) line-through text-green-600 @endif">
+                                {{ $task->title }}
+                            </p>
+                            <p class="text-gray-500 text-sm">{{ $task->description }}</p>
+                        </div>
+
                         <!-- Progress Bar -->
                         <div class="relative flex-1 bg-gray-200 h-4 rounded overflow-hidden shadow-md">
                             <div
@@ -47,32 +54,27 @@
                         <div class="text-sm font-bold text-gray-700">
                             {{ round($progress[$task->id] ?? 0, 2) }}%
                         </div>
-                    </div>
 
-                    <!-- Add a Toggle Button -->
-                    <button
-                        x-data="{}"
-                        x-on:click="$wire.toggleCompletion({{ $task->id }})"
-                        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-all duration-300"
-                    >
-                        Toggle
-                    </button>
+                        <!-- Toggle Button -->
+                        <button
+                            x-data="{}"
+                            x-on:click="$wire.toggleCompletion({{ $task->id }})"
+                            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-all duration-300"
+                            {{-- :disabled="$wire.loading" --}}
+                            wire:loading.attr="disabled"
+
+                        >
+                            @if ($task->completed)
+                                Mark as Incomplete
+                            @else
+                                Mark as Complete
+                            @endif
+                        </button>
+                    </div>
                 @empty
                     <p class="text-gray-500 text-sm">No tasks available for this tier.</p>
                 @endforelse
             </div>
-
         </div>
     @endforeach
-    <section>
-        <div>
-            @if ($errors->has('toggleError'))
-    <div class="alert alert-danger p-4 bg-red-100 text-red-800 rounded">
-        {{ $errors->first('toggleError') }}
-    </div>
-@endif
-
-        </div>
-    </section>
 </div>
-

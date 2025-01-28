@@ -13,5 +13,7 @@ use Illuminate\Support\Facades\Route;
 // Route for the TierList component
 Route::get('/', TierList::class);
 
-Route::get('/register', [TaskController::class, 'register'])->name('tasks.create');
+// Task creation form (GET)
+Route::get('/task/create', [TaskController::class, 'create'])->name('tasks.create');
+// Task submission (POST)
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');

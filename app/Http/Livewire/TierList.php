@@ -13,7 +13,7 @@ class TierList extends Component
     public function mount()
     {
         // Fetch all tasks from the database
-        $this->tasks = Task::all();
+        $this->tasks = collect(Task::all());
 
         // Calculate progress for each task
         foreach ($this->tasks as $task) {
