@@ -10,6 +10,11 @@
         </div>
     @endif
 
+    <a href="{{ route('tasks.create') }}" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+        + Add New Task
+    </a>
+
+
     @php
         $tiers = [
             'S' => 'bg-red-500',
@@ -77,4 +82,6 @@
             </div>
         </div>
     @endforeach
+
 </div>
+
