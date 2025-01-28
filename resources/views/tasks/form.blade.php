@@ -1,8 +1,25 @@
 <x-layout>
     <h1>Create New Task</h1>
+    {{-- error message --}}
+    @if (session('success'))
+    <div>
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if ($errors->any())
+    <div>
+        <ul>
+            @foreach ($errors->all() as $error )
+            <li> {{$error}} </li>
+            @endforeach
+        </ul>
+    </div>
+
+    @endif
 
     <form
-    action="{{ route(tasks . store) }}"
+    action="{{ route(tasks.store) }}"
     method="POST"
     class="">
 
