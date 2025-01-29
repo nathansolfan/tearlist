@@ -19,3 +19,7 @@ Route::get('/task/create', [TaskController::class, 'create'])->name('tasks.creat
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 // Index
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+// Edit/Update
+Route::get('/tasks/{task}/edit', [TaskController::class,'edit'])->name('tasks.edit');
+// Destroy
+Route::delete('tasks/{task}', [TaskController::class,'destroy'])->name('tasks.destroy');

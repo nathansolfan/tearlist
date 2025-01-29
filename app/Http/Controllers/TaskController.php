@@ -12,7 +12,7 @@ class TaskController extends Controller
         // $tasks = Task::all();
         // return view('welcome', compact('tasks'));
         $tasks = Task::all();
-    return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 
     public function create()
