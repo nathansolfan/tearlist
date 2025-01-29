@@ -17,3 +17,5 @@ Route::get('/', TierList::class);
 Route::get('/task/create', [TaskController::class, 'create'])->name('tasks.create');
 // Task submission (POST)
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+// Index
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
