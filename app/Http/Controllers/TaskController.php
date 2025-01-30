@@ -37,4 +37,9 @@ class TaskController extends Controller
 
         return redirect('/')->with('success', 'Task created successfully!');
     }
+
+    public function edit()
+    {
+
+    }
 }
