@@ -34,6 +34,29 @@
                           required>{{ old('description', $task->description) }}</textarea>
             </div>
 
+            {{-- Tier --}}
+            <div>
+                <label for="tier" class="block text-sm font-medium text-gray-700 mb-1">Tier</label>
+                <select name="tier" id="tier"
+                        class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        required>
+                    <option value="s">S</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                    <option value="e">E</option>
+                </select>
+            </div>
+
+            {{-- Deadline --}}
+            <div>
+                <label for="deadline" class="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
+                <input type="date" name="deadline" id="deadline"
+                       class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       required>
+            </div>
+
             {{-- Submit --}}
             <div class="text-center">
                 <button type="submit"
