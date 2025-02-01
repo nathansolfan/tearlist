@@ -2,6 +2,11 @@
     <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
         <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Create New Task</h1>
 
+        @include('components.task-form', ['action' => route('tasks.store'), 'isEdit' => false, 'buttonText' => 'Create Task'])
+    </div>
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Create New Task</h1>
+
         {{-- Success Message --}}
         @if (session('success'))
             <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg">
